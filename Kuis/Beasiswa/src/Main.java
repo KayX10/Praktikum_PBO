@@ -18,15 +18,13 @@ public class Main {
     }
 
     public static int menu(){
-        System.out.print("""
-                +---------------------------------+
-                | Pendaftaran Beasiswa PT. Benang |
-                +---------------------------------+
-                Terdapat 2 program beasiswa yang dibuka:
-                \t1. Beasiswa Pelajar
-                \t2. Beasiswa Mahasiswa
-                Pilih beasiswa yang didaftar:\040
-                """);
+        System.out.print("+---------------------------------+");
+        System.out.print("| Pendaftaran Beasiswa PT. Benang |");
+        System.out.print("+---------------------------------+");
+        System.out.print("Terdapat 2 program beasiswa yang dibuka: ");
+        System.out.print("1. Beasiswa Pelajar");
+        System.out.print("2. Beasiswa Mahasiswa");
+        System.out.print("Pilih beasiswa yang didaftar: ");
         return in.nextInt();
     }
 
@@ -63,14 +61,14 @@ public class Main {
     }
 
     public static void formNilaiMahasiswa(Mahasiswa mahasiswa) {
-        System.out.println("--- Form Penilaian ---");
+        System.out.println("== FORM PENILAIAN ==");
         System.out.println("Keterangan: Nilai yang valid berada di antara 0 - 100\n");
 
         System.out.println("Nilai Struktur dan Konten Jurnal: ");
         mahasiswa.setNilaiSkj(inputValidNumber());
         System.out.println("Nilai Relevansi Data: ");
         mahasiswa.setnilaiRd(inputValidNumber());
-        System.out.println("Kemampuang Problem Solving: ");
+        System.out.println("Kemampuan Problem Solving: ");
         mahasiswa.setnilaiPs(inputValidNumber());
     }
 
@@ -80,7 +78,7 @@ public class Main {
         boolean redo = true;
 
         while(redo) {
-            System.out.println("=== FORM PENDAFTARAN ===");
+            System.out.println("== FORM PENDAFTARAN ==");
             System.out.print("Nama Lengkap\t: ");
             nama = in.next();
             System.out.print("Usia\t\t: ");
@@ -111,7 +109,7 @@ public class Main {
         }
     }
     public static void formNilaiPelajar(Pelajar pelajar) {
-        System.out.println("--- Form Penilaian ---");
+        System.out.println("== FORM PENILAIAN ==");
         System.out.println("Keterangan: Nilai yang valid berada di antara 0 - 100\n");
 
         System.out.println("Nilai Struktur dan Konten Esai: ");
@@ -135,7 +133,7 @@ public class Main {
         return n;
     }
 
-    public static int subMenu(){
+    public static int Menu2(){
         boolean redo = true;
         int n = 0;
         while(redo) {
