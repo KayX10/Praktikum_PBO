@@ -1,6 +1,8 @@
 package beasiswa;
 
 public interface BeasiswaPelajar {
-    public void TampilkanHasil();
-    public void UbahNilai();
+    final static double rerata = 87.5;
+    double Ske();
+    double Tv();
+    double Dt();
 }

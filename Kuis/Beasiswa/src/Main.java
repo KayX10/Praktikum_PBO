@@ -1,94 +1,158 @@
 import java.util.*;
 
-public class Main{
-    double ske, tk, kds, rerata;
+public class Main {
+    public static Scanner in;
+
     public static void main(String[] args) {
+        in = new Scanner(System.in);
+            int opsi = menu();
+            switch (opsi){
+                case 1:
+                    mahasiswa();
+                    break;
+                case 2:
+                    pelajar();
+                    break;
+        }
 
-        Scanner input = new Scanner(System.in);
+    }
 
-        System.out.println("+------------------------------+");
-        System.out.println("Pendaftaran Beasiswa PT. Benang");
-        System.out.println("+------------------------------+");
-        System.out.println("Terdapat 2 Program Beasiswa");
-        System.out.println("1. Beasiswa Mahasiswa");
-        System.out.println("2. Beasiswa Pelajar");
+    public static int menu(){
+        System.out.print("""
+                +---------------------------------+
+                | Pendaftaran Beasiswa PT. Benang |
+                +---------------------------------+
+                Terdapat 2 program beasiswa yang dibuka:
+                \t1. Beasiswa Pelajar
+                \t2. Beasiswa Mahasiswa
+                Pilih beasiswa yang didaftar:\040
+                """);
+        return in.nextInt();
+    }
 
-        System.out.print("Pilih Beasiswa yang didaftar : ");
-        int pilih = input.nextInt();
+    public static void mahasiswa(){
+        String nama;
+        int umur;
+        boolean redo = true;
 
-        System.out.println();
-        // Menu
-        switch(pilih){
-            case 1 :{
-                Scanner input2 = new Scanner(System.in);
-                System.out.println("== FORM PENDAFTARAN ==");
-                System.out.print("Nama Lengkap : ");
-                String nama = input2.nextLine();
-                System.out.print("Usia : ");
-                int usia = input2.nextInt();
+        while(redo) {
+            System.out.println("=== FORM PENDAFTARAN ===");
+            System.out.print("Nama Lengkap\t: ");
+            nama = in.next();
+            System.out.print("Usia\t\t: ");
+            umur = in.nextInt();
 
-                System.out.println("== FORM PENILAIAN ==");
-                System.out.println("Keterangan : Nilai yang valid berada di antara 0 - 100");
-                System.out.println();
-                System.out.print("Nilai Struktur dan Konten Esai : ");
-                double ske = input2.nextInt();
-                System.out.println();
-                System.out.print("Nilai Teknik Visualisasi : ");
-                double tk = input2.nextInt();
-                System.out.println();
-                System.out.print("Nilai Kemampuan Design Thinking : ");
-                double kds = input2.nextInt();
-                System.out.println();
-                double rerata = (ske+tk+kds)/2;
+            Mahasiswa mahasiswa = new Mahasiswa(nama, umur);
+            formNilaiMahasiswa(mahasiswa);
 
-                System.out.println("+++ MENU +++");
-                System.out.println("1. Tampilkan Hasil");
-                System.out.println("2. Ubah Nilai");
-                System.out.println("3. Keluar");
-                System.out.print("Pilih : ");
-                int pilih2 = input2.nextInt();
-
+            switch (subMenu()) {
+                case 1:
+                    if (umur >= 16 && umur <= 24 && mahasiswa.getTotal() >= 87.5)
+                        mahasiswa.lolos();
+                    else
+                        mahasiswa.tidakLolos();
+                    break;
+                case 2:
+                    formNilaiMahasiswa(mahasiswa);
+                    break;
+                case 3:
+                    redo = false;
+                    break;
             }
-            case 2 :{
-                Scanner input3 = new Scanner(System.in);
-                System.out.println("== FORM PENDAFTARAN ==");
-                System.out.print("Nama Lengkap : ");
-                String nama = input3.nextLine();
-                System.out.print("Usia : ");
-                int usia = input3.nextInt();
+        }
+    }
 
-                System.out.println("== FORM PENILAIAN ==");
-                System.out.println("Keterangan : Nilai yang valid berada di antara 0 - 100");
-                System.out.println();
-                System.out.print("Nilai Struktur dan Konten Esai : ");
-                int ske = input3.nextInt();
-                System.out.println();
-                System.out.print("Nilai Teknik Visualisasi : ");
-                int tk = input3.nextInt();
-                System.out.println();
-                System.out.print("Nilai Kemampuan Design Thinking : ");
-                int kds = input3.nextInt();
-                System.out.println();
+    public static void formNilaiMahasiswa(Mahasiswa mahasiswa) {
+        System.out.println("--- Form Penilaian ---");
+        System.out.println("Keterangan: Nilai yang valid berada di antara 0 - 100\n");
 
-                System.out.println("+++ MENU +++");
-                System.out.println("1. Tampilkan Hasil");
-                System.out.println("2. Ubah Nilai");
-                System.out.println("3. Keluar");
-                System.out.print("Pilih : ");
-                int pilih3 = input3.nextInt();
+        System.out.println("Nilai Struktur dan Konten Jurnal: ");
+        mahasiswa.setNilaiSkj(inputValidNumber());
+        System.out.println("Nilai Relevansi Data: ");
+        mahasiswa.setnilaiRd(inputValidNumber());
+        System.out.println("Kemampuang Problem Solving: ");
+        mahasiswa.setnilaiPs(inputValidNumber());
+    }
 
-                switch(pilih3){
-                    case 1:{
+    public static void pelajar(){
+        String nama;
+        int umur;
+        boolean redo = true;
 
-                    }
-                    case 2:{
-                        
-                    }
-                    case 3:{
-                        System.out.println("Terima kasih!");
-                    }
+        while(redo) {
+            System.out.println("=== FORM PENDAFTARAN ===");
+            System.out.print("Nama Lengkap\t: ");
+            nama = in.next();
+            System.out.print("Usia\t\t: ");
+            umur = in.nextInt();
+
+            Pelajar pelajar = new Pelajar(nama, umur);
+            formNilaiPelajar(pelajar);
+
+            boolean loop = true;
+            while (loop) {
+                switch (subMenu()) {
+                    case 1:
+                        if (umur >= 16 && umur <= 24 && pelajar.getTotal() >= 87.5)
+                            pelajar.lolos();
+                        else
+                            pelajar.tidakLolos();
+                        break;
+                    case 2:
+                        formNilaiPelajar(pelajar);
+                        break;
+                    case 3:
+                        loop = false;
+                        redo = false;
+                        System.out.println("Terima Kasih!");
+                        break;
                 }
             }
         }
+    }
+    public static void formNilaiPelajar(Pelajar pelajar) {
+        System.out.println("--- Form Penilaian ---");
+        System.out.println("Keterangan: Nilai yang valid berada di antara 0 - 100\n");
+
+        System.out.println("Nilai Struktur dan Konten Esai: ");
+        pelajar.setnilaiSke(inputValidNumber());
+        System.out.println("Nilai Teknik Visualisasi: ");
+        pelajar.setnilaiTv(inputValidNumber());
+        System.out.println("Nilai Design Thinking: ");
+        pelajar.setnilaiDt(inputValidNumber());
+    }
+    public static double inputValidNumber(){
+        double n = 0;
+        boolean correct = false;
+        while(!correct){
+            try {
+                n = in.nextDouble();
+                correct = true;
+            }catch (NumberFormatException e){
+                System.out.print("");
+            }
+        }
+        return n;
+    }
+
+    public static int subMenu(){
+        boolean redo = true;
+        int n = 0;
+        while(redo) {
+            System.out.println("+++ MENU +++");
+            System.out.println("\t1. Tampilkan Hasil");
+            System.out.println("\t2. Ubah Nilai");
+            System.out.println("\t3. Keluar");
+            System.out.print("Pilih: ");
+            try {
+                n = in.nextInt();
+                if(n > 3 || n < 1)
+                    throw new NumberFormatException("");
+                else redo = false;
+            }catch (NumberFormatException e){
+                System.out.print(e);
+            }
+        }
+        return n;
     }
 }
